@@ -1,0 +1,44 @@
+What
+--
+gzipit.class.php is a PHP class that applies caching headers and GZIP compression to client browsers that support it. It is a stand-alone script that only requires to be included in the footer of your code to use. One line, no muss. Inspired by Mark Nottingham's cgi_buffer [http://www.mnot.net/cgi_buffer/]. Written to be supported for PHP 4/PHP 5 but only tested in PHP 5.
+
+
+How
+--
+Include the gzipIt class at the end of your page footer if you have one, or simply at the very end of any PHP file you'd like to enable its features on.
+
+include 'gzipit.class.php';
+
+or
+
+require 'gzipit.class.php';
+
+Test that it works: http://www.gidnetwork.com/tools/gzip-test.php
+
+
+Why
+--
+It can reduce the latency of your web application even if you already have compression and caching enabled on your web server or proxy. gzipIt generates the following headers:
+ 
+  * Content-Encoding: gzip/x-gzip
+  * Vary: Accept-Encoding
+    + Informs client browser to receive a gzipped response if supported.
+
+  * ETag: md5
+    + A unique hash of a specific resource on the server; if the hash has changed from a previous request, the client browser knows to re-request the resource.
+
+  * HTTP/1.0 304 Not Modified
+    + Nothing changed.
+
+
+Who
+--
+meathive https://kinqpinz.info/
+
+
+References
+--
+http://www.mnot.net/cgi_buffer/
+http://www.gidnetwork.com/tools/gzip-test.php
+http://en.wikipedia.org/wiki/HTTP_ETag
+http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.3
